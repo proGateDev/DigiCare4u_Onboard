@@ -1,5 +1,6 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+// import Navbar from "@/components/Navbar";
+import Footer from "@/components/home/Footer";
+import Navbar from "@/components/home/Navbar";
 import React from "react";
 
 function BlogDetails() {

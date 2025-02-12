@@ -1,12 +1,12 @@
-import Header from '@/components/Header';
-import Product from '@/components/Product'
-import About from '@/components/About'
+import Header from '@/components/home/Header';
+import Product from '@/components/home/Product'
+import About from '@/components/home/About'
 // import Review from '../component/LandingPage/Review'
-import Footer from '@/components/Footer'
-import Features from '@/components/Features'
-import Partner from '@/components/Partner'
-import Hero from '@/components/Hero'
-import Navbar from '@/components/Navbar';
+import Footer from '@/components/home/Footer'
+import Features from '@/components/home/Features'
+import Partner from '@/components/home/Partner'
+import Hero from '@/components/home/Hero'
+import Navbar from '@/components/home/Navbar';
 
 
 export default function Home() {
