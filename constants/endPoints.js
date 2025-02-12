@@ -1,0 +1,1 @@
+export const  devURL= "https://digicare4u-chhqh0cubtehc6h6.centralindia-01.azurewebsites.net"
