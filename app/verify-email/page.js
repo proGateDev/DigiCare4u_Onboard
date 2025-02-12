@@ -1,7 +1,7 @@
 "use client";
 
 import "../../app/globals.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
@@ -9,14 +9,14 @@ import Swal from "sweetalert2";
 import { devURL } from "@/constants/endPoints";
 import { useSearchParams } from "next/navigation";
 
-const EmailVerification = () => {
+const EmailVerificationContent = () => {
   const searchParams = useSearchParams();
   const [message, setMessage] = useState("");
   const [userData, setUserData] = useState("");
   const [token, setToken] = useState(null);
   const [isApiCalling, setIsApiCalling] = useState(false);
+
   let tokenQueried = searchParams.get("token");
-  // console.log('isApiCalling', isApiCalling);
 
   useEffect(() => {
     if (tokenQueried) {
@@ -34,11 +34,10 @@ const EmailVerification = () => {
       }
     }
   }, [token]);
-console.log('userData',userData);
 
   const verifyEmail = async () => {
     try {
-      setIsApiCalling(true)
+      setIsApiCalling(true);
       const response = await axios.get(`${devURL}/member/auth/verify-email?token=${token}`);
       setMessage(response.data.message);
       Swal.fire({ title: "Email Verified!", text: response.data.message, icon: "success", confirmButtonText: "OK" });
@@ -47,8 +46,7 @@ console.log('userData',userData);
       setMessage(errorMessage);
       Swal.fire({ title: "Verification Failed", text: errorMessage, icon: "error", confirmButtonText: "Try Again" });
     } finally {
-
-      setIsApiCalling(false)
+      setIsApiCalling(false);
     }
   };
 
@@ -68,13 +66,12 @@ console.log('userData',userData);
             Click below to verify your email and access your account.
           </p>
           <div className="center">
-
-            <button className="email-verification-button" onClick={verifyEmail}>{isApiCalling ? 'Submitting .....' : 'Verify Your Email'}</button>
+            <button className="email-verification-button" onClick={verifyEmail}>
+              {isApiCalling ? "Submitting ....." : "Verify Your Email"}
+            </button>
           </div>
 
-          <p>
-            Didn’t receive the email? <Link href="#">Resend verification email</Link>
-          </p>
+          <p>Didn’t receive the email? <Link href="#">Resend verification email</Link></p>
         </div>
 
         <div className="email-verification-footer">
@@ -98,5 +95,12 @@ console.log('userData',userData);
     </div>
   );
 };
+
+// Wrap in Suspense
+const EmailVerification = () => (
+  <Suspense fallback={<p>Loading...</p>}>
+    <EmailVerificationContent />
+  </Suspense>
+);
 
 export default EmailVerification;
